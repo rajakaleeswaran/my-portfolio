@@ -2,124 +2,12 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import SectionContainer from "./SectionContainer";
 import HoverCard from "./HoverCard";
-import { Mail, Phone, MapPin, Download } from "lucide-react";
-import { FaGithub as Github, FaLinkedin as Linkedin } from "react-icons/fa";
+import { Mail, Phone, MapPin, Send, Github } from "lucide-react";
 
 const Contact = () => {
   const { colors } = useContext(ThemeContext);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  const openLink = (url) => {
-    window.open(url, "_blank");
-  };
-
-  const handleSend = () => {
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(`From: ${email}\n\n${message}`);
-    window.location.href = `mailto:rajakaleeswaranhari5@gmail.com?subject=${subject}&body=${body}`;
-  };
-
-  return (
-    <SectionContainer>
-      <h2 style={{ color: colors.text, fontSize: "28px", marginBottom: "20px" }}>
-        Get In Touch
-      </h2>
-
-      <HoverCard>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "40px",
-          }}
-        >
-          {/* LEFT */}
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <h3 style={{ color: colors.text, fontSize: "24px", marginBottom: "15px" }}>
-              Let's build something together.
-            </h3>
-
-            <p style={{ color: colors.textSecondary, lineHeight: "1.7" }}>
-              I'm open to opportunities. Feel free to reach out!
-            </p>
-
-            <div style={{ marginTop: "25px", display: "flex", flexDirection: "column", gap: "15px" }}>
-              <p style={{ display: "flex", gap: "12px", alignItems: "center", color: colors.text }}>
-                <Phone size={18} color={colors.accent} /> +91 9385538055
-              </p>
-              <p style={{ display: "flex", gap: "12px", alignItems: "center", color: colors.text }}>
-                <Mail size={18} color={colors.accent} />
-                rajakaleeswaranhari5@gmail.com
-              </p>
-              <p style={{ display: "flex", gap: "12px", alignItems: "center", color: colors.text }}>
-                <MapPin size={18} color={colors.accent} /> Tamil Nadu, India
-              </p>
-            </div>
-
-            <div style={{ display: "flex", gap: "15px", marginTop: "30px" }}>
-              <Github className="social-icon" size={24} color={colors.textSecondary} cursor="pointer" onClick={() => openLink("https://github.com/rajakaleeswaran")} />
-              <Linkedin className="social-icon" size={24} color={colors.textSecondary} cursor="pointer" onClick={() => openLink("https://www.linkedin.com")} />
-            </div>
-
-            <button
-              className="btn-primary"
-              style={{ marginTop: "20px", display: "flex", alignItems: "center", gap: "8px" }}
-              onClick={() => openLink("#")}
-            >
-              <Download size={18} /> Download Resume
-            </button>
-          </div>
-
-          {/* RIGHT FORM */}
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <input
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{ 
-                width: "100%", marginBottom: "15px", padding: "14px",
-                background: colors.background, color: colors.text,
-                border: `1px solid ${colors.border}`, borderRadius: "8px" 
-              }}
-            />
-
-            <input
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ 
-                width: "100%", marginBottom: "15px", padding: "14px",
-                background: colors.background, color: colors.text,
-                border: `1px solid ${colors.border}`, borderRadius: "8px" 
-              }}
-            />
-
-            <textarea
-              placeholder="Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              style={{ 
-                width: "100%", padding: "14px", minHeight: "130px",
-                background: colors.background, color: colors.text,
-                border: `1px solid ${colors.border}`, borderRadius: "8px", resize: "vertical"
-              }}
-            />
-
-            <button
-              className="btn-primary"
-              onClick={handleSend}
-              style={{ width: "100%", marginTop: "15px", display: "flex", justifyContent: "center" }}
-            >
-              Send Message
-            </button>
-          </div>
-        </div>
-      </HoverCard>
-    </SectionContainer>
-  );
+  const [name, setName] = useState(""); const [email, setEmail] = useState(""); const [message, setMessage] = useState("");
+  const handleSend = (event) => { event.preventDefault(); const subject = encodeURIComponent(`Portfolio Contact from ${name || "Visitor"}`); const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`); window.location.href = `mailto:rajakaleeswaranhari5@gmail.com?subject=${subject}&body=${body}`; };
+  return <SectionContainer><div className="section-heading"><span className="section-kicker">Contact</span><h2 className="section-title" style={{ color: colors.text }}>Have a project or opportunity?</h2><p className="section-subtitle">I’m open to conversations about internships, full-time opportunities and interesting software projects.</p></div><HoverCard><div className="contact-card"><div className="contact-copy"><h3 style={{ color: colors.text }}>Let’s build something useful.</h3><p>Send a message and your email client will open with the details ready to go.</p><div className="contact-details"><span className="contact-detail"><Mail size={17}/>rajakaleeswaranhari5@gmail.com</span><span className="contact-detail"><Phone size={17}/>+91 9385538055</span><span className="contact-detail"><MapPin size={17}/>Tamil Nadu, India</span><a className="contact-detail" href="https://github.com/rajakaleeswaran" target="_blank" rel="noreferrer"><Github size={17}/>github.com/rajakaleeswaran</a></div></div><form className="contact-form" onSubmit={handleSend}><input required aria-label="Name" placeholder="Your name" value={name} onChange={(e)=>setName(e.target.value)}/><input required type="email" aria-label="Email" placeholder="Email address" value={email} onChange={(e)=>setEmail(e.target.value)}/><textarea required aria-label="Message" placeholder="Tell me a little about your message..." value={message} onChange={(e)=>setMessage(e.target.value)}/><button className="btn-primary" type="submit"><Send size={16}/> Send message</button></form></div></HoverCard></SectionContainer>;
 };
-
 export default Contact;
