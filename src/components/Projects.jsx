@@ -2,125 +2,33 @@ import { useContext } from "react";
 import { ThemeContext } from "../theme/ThemeContext";
 import SectionContainer from "./SectionContainer";
 import HoverCard from "./HoverCard";
-import { ExternalLink, Folder } from "lucide-react";
-import { FaGithub as Github } from "react-icons/fa";
+import { ExternalLink, Folder, Github } from "lucide-react";
 
 const projectsData = [
-  {
-    title: "Vehicle Insurance Verification System",
-    description:
-      "A full-stack web app handling structured data and document uploads.",
-    stack: ["Node.js", "Express", "SQL Server"],
-    github: "https://github.com/",
-    demo: "https://example.com",
-  },
-  {
-    title: "Student Activity Tracking System",
-    description:
-      "A mentor-based platform improving student data tracking.",
-    stack: ["HTML", "CSS", "JS", "Node.js", "SQL Server"],
-    github: "https://github.com/",
-    demo: "https://example.com",
-  },
-  {
-    title: "Password Strength Checker",
-    description:
-      "Tool to evaluate password strength using validation logic.",
-    stack: ["Python", "JavaScript"],
-    github: "https://github.com/",
-    demo: "https://example.com",
-  },
+  { title: "Vehicle Insurance Verification System", description: "Full-stack application for structured insurance data and document workflows.", stack: ["Node.js", "Express", "SQL Server"], github: "https://github.com/rajakaleeswaran" },
+  { title: "Student Activity Tracking System", description: "Mentor-oriented platform for organizing and tracking student activities.", stack: ["HTML", "CSS", "JavaScript", "Node.js", "SQL"], github: "https://github.com/rajakaleeswaran" },
+  { title: "Password Strength Checker", description: "Security-focused utility that evaluates password quality using validation rules.", stack: ["Python", "JavaScript"], github: "https://github.com/rajakaleeswaran" },
 ];
 
 const Projects = () => {
   const { colors } = useContext(ThemeContext);
-
-  const openLink = (url) => {
-    window.open(url, "_blank");
-  };
-
   return (
     <SectionContainer>
-      <h2 style={{ color: colors.text, fontSize: "28px", marginBottom: "20px" }}>
-        Featured Projects
-      </h2>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "30px",
-        }}
-      >
-        {projectsData.map((project, index) => (
-          <HoverCard key={index} colorTheme={colors}>
-            <div style={{ marginBottom: "10px" }}>
-              <Folder size={20} color={colors.accent} />
-            </div>
-
-            <h3 style={{ color: colors.text }}>{project.title}</h3>
-
-            <p style={{ color: colors.textSecondary }}>
-              {project.description}
-            </p>
-
-            {/* Tech Stack */}
-            <div style={{ marginTop: "15px", display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {project.stack.map((tech, i) => (
-                <span
-                  key={i}
-                  style={{
-                    background: colors.background,
-                    color: colors.text,
-                    border: `1px solid ${colors.border}`,
-                    padding: "6px 12px",
-                    borderRadius: "20px",
-                    fontSize: "12px",
-                    fontWeight: "500",
-                  }}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div style={{ marginTop: "24px", display: "flex", gap: "10px" }}>
-              <button
-                className="btn-primary"
-                onClick={() => openLink(project.github)}
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                }}
-              >
-                <Github size={16} /> GitHub
-              </button>
-
-              <button
-                className="btn-secondary"
-                onClick={() => openLink(project.demo)}
-                style={{
-                  flex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                  border: `1px solid ${colors.textSecondary}`,
-                  color: colors.text,
-                }}
-              >
-                <ExternalLink size={16} /> Demo
-              </button>
-            </div>
+      <div className="section-heading"><span className="section-kicker">Selected work</span><h2 className="section-title" style={{ color: colors.text }}>Projects that solve problems.</h2><p className="section-subtitle">A selection of practical projects across full-stack development, automation and security.</p></div>
+      <div className="projects-grid">
+        {projectsData.map((project) => (
+          <HoverCard key={project.title} style={{}}>
+            <article className="project-card">
+              <div className="project-icon"><Folder size={20} /></div>
+              <h3 style={{ color: colors.text }}>{project.title}</h3>
+              <p>{project.description}</p>
+              <div className="project-tags">{project.stack.map((tech) => <span className="project-tag" key={tech}>{tech}</span>)}</div>
+              <div className="project-actions"><a className="btn-primary" href={project.github} target="_blank" rel="noreferrer"><Github size={16} /> GitHub</a><a className="btn-secondary" href={project.github} target="_blank" rel="noreferrer"><ExternalLink size={16} /> Explore</a></div>
+            </article>
           </HoverCard>
         ))}
       </div>
     </SectionContainer>
   );
 };
-
 export default Projects;
